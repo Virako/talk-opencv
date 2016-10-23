@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+from myutils import get_colors
 
 
 def get_range_hsv(bgr_color):
@@ -10,44 +11,42 @@ def get_range_hsv(bgr_color):
     return lower_color, upper_color
 
 
-capture = cv2.VideoCapture(0)
-mode = ''
+while 1:
+    colors = get_colors()
+    if len(colors) > 0:
+        break
 
-color = [200, 200, 200] # WHITE
+color = colors[0]
+capture = cv2.VideoCapture(1)
 
 while 1:
     result, frame = capture.read()
     if not result:
         break
-
-    # BGR
-    if mode == 'r': # RED
-        color = [30, 30, 110]
-    elif mode == 'g': # GREEN
-        color = [0, 100, 0]
-    elif mode == 'b': # BLUE
-        color = [150, 60, 20]
-    elif mode == 'y': # YELLOW
-        color = [0, 255, 255]
-    elif mode == 'p': # PURPLE
-        color = [35, 15, 60]
-    elif mode == 'w': # GRAY
-        color = [120, 120, 120]
-
-    lower_color, upper_color = get_range_hsv(color)
-
-    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-    mask = cv2.inRange(hsv, lower_color, upper_color)
-    res = cv2.bitwise_and(frame, frame, mask=mask)
-
-    cv2.imshow("orig", frame)
-    cv2.imshow("hsv", hsv)
-    cv2.imshow("mask", mask)
-    cv2.imshow("res", res)
+    frame = cv2.flip(frame, 1)
 
     ascii_key = cv2.waitKey(30) & 0xFF
     if ascii_key == 27:
         break
     mode = chr(ascii_key)
 
+    # BGR
+    if mode.isdigit():
+        color = colors[int(mode) % len(colors)]
+
+    lower_color, upper_color = get_range_hsv(color)
+
+    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+    mask = cv2.inRange(hsv, lower_color, upper_color)
+
+    i = 0
+    for c in colors:
+        cv2.rectangle(frame, (i*20, 0), ((i+1)*20, 20), c, -1)
+        i += 1
+
+    #cv2.imshow("hsv", hsv)
+    cv2.imshow("orig", frame)
+    cv2.imshow("mask", mask)
+
 cv2.destroyAllWindows()
+capture.release()

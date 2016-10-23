@@ -6,17 +6,17 @@ print(""" HELP:
         f -> flip hor
         F -> flip ver
         c --> gray color
-        C --> gray color
+        C --> hsv color
         d --> diff 
         r --> restart beer image
         b --> blur
+        k --> canny
         t --> threshold""")
 
 mode = None
 img = cv2.imread("assets/beer-big.png")
 
 while 1:
-    show_diff = False
     if mode == 'p':
         img = np.zeros((600, 800, 3), np.uint8)
         WHITE = (255, 255, 255)
@@ -41,11 +41,13 @@ while 1:
         cv2.destroyAllWindows()
     elif mode == 'b':
         img = cv2.blur(img, (5, 5))
+    elif mode == 'k':
+        img = cv2.Canny(img, 1, 2)
     elif mode == 't':
-        img = cv2.imread("assets/orange.jpg")
+        img = cv2.imread("assets/beers.jpg")
         aux_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        ret, orange1 = cv2.threshold(aux_img, 100, 255, cv2.THRESH_BINARY)
-        ret, orange2 = cv2.threshold(aux_img, 200, 255, cv2.THRESH_BINARY)
+        ret, orange1 = cv2.threshold(aux_img, 50, 255, cv2.THRESH_BINARY)
+        ret, orange2 = cv2.threshold(aux_img, 150, 255, cv2.THRESH_BINARY)
         cv2.imshow("orange1", orange1)
         cv2.imshow("orange2", orange2)
 

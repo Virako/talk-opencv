@@ -8,7 +8,7 @@ cv2.imshow("BEAR", img2)
 cv2.waitKey(0) # WAIT PRESS
 cv2.destroyAllWindows()
 
-capture = cv2.VideoCapture(0)
+capture = cv2.VideoCapture(1)
 while 1:
     result, frame = capture.read()
     if result:
@@ -21,3 +21,4 @@ while 1:
         break
 
 cv2.destroyAllWindows()
+capture.release()
