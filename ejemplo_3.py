@@ -8,8 +8,7 @@ def putText(img, text, position=(0, 0), color=(0, 0, 0), size=1, thinkness=3):
     cv2.putText(img, text, position, font, size, color, thinkness, cv2.LINE_AA)
 
 
-SIZE = (800, 600)
-#SIZE = (1920, 1080)
+#SIZE = (800, 600)
 FPS = 20
 SPAWN = 3 # seconds
 RED = (0, 0, 255)
@@ -57,7 +56,7 @@ while 1:
     putText(frame, text_scores, position=(int(w / 3), 25))
     cv2.circle(frame, (pos_y, pos_x), 15, RED, enemy_timer)
 
-    frame = cv2.resize(frame, SIZE, interpolation=cv2.INTER_CUBIC)
+    #frame = cv2.resize(frame, SIZE, interpolation=cv2.INTER_CUBIC)
     cv2.imshow("game", frame)
 
     ascii_key = cv2.waitKey(FPS) & 0xFF

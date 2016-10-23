@@ -1,9 +1,9 @@
 import cv2
 import numpy as np
  
-captura = cv2.VideoCapture(1)
+capture = cv2.VideoCapture(1)
 
-valid, frame = captura.read()
+valid, frame = capture.read()
 if not valid:
     exit()
 h, w, c = frame.shape
@@ -14,7 +14,7 @@ canny2 = 30
  
 while(1):
 
-    valid, frame = captura.read()
+    valid, frame = capture.read()
     if not valid:
         continue
     frame =  cv2.flip(frame, 1)
@@ -40,7 +40,7 @@ while(1):
         area = cv2.contourArea(approx)
         lenght = cv2.arcLength(approx, True)
         # TODO: without restriction
-        #cv2.drawContours(frame, [approx], 0, (0, 255, 0), 2)
+        cv2.drawContours(frame, [approx], 0, (0, 255, 0), 2)
         if len(approx) == 4 and area > MIN_AREA and lenght < MAX_PERIMETER:
             cv2.drawContours(frame, [approx], 0, (0, 0, 255), 2)
 

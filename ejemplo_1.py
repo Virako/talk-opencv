@@ -11,14 +11,14 @@ cv2.destroyAllWindows()
 capture = cv2.VideoCapture(1)
 while 1:
     result, frame = capture.read()
-    if result:
-        cv2.imshow("FRAME", frame)
-    else:
+    if not result:
         break
 
     ascii_key = cv2.waitKey(30) & 0xFF
     if ascii_key == 27: #ESC
         break
+
+    cv2.imshow("FRAME", frame)
 
 cv2.destroyAllWindows()
 capture.release()
