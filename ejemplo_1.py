@@ -4,7 +4,7 @@ import numpy as np
 img1 = np.zeros((600, 800, 3), np.uint8)
 img2 = cv2.imread("assets/beer-big.png")
 cv2.imshow("ZERO", img1)
-cv2.imshow("BEAR", img2)
+cv2.imshow("BEER", img2)
 cv2.waitKey(0) # WAIT PRESS
 cv2.destroyAllWindows()
 

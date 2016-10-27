@@ -6,7 +6,7 @@ dp = 1.5
 param1 = 50
 param2 = 50
 
-valid, frame = captura.read()
+valid, frame = capture.read()
 if not valid:
     exit()
 h, w, c = frame.shape
@@ -35,7 +35,7 @@ while(1):
         param2 -= 1
     print(dp, param1, param2)
 
-    valid, frame = captura.read()
+    valid, frame = capture.read()
     if not valid:
         continue
     frame =  cv2.flip(frame, 1)
